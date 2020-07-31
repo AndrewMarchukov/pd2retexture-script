@@ -53,11 +53,11 @@ $env:alphadir
 read-host "press ENTER if alpha directroy correctly set < IF NOT! SET IT! >"
 read-host "press ENTER last time"
 # not parallel - cmd.exe /c "FOR /R %f IN (*.png) DO magick composite -compose CopyOpacity "%alphadir%\%~nf.png" "%f" "%f""
-cmd.exe /c "dir *.png /s /b | %MParallel% --ignore-exitcode --count=9 --stdin --no-split-lines --pattern="%magick% composite -compose CopyOpacity \"%alphadir%\{{0:N}}.png\" \"{{0}}\" \"{{0}}\"""
+cmd.exe /c 'dir *.png /s /b | %MParallel% --ignore-exitcode --count=9 --stdin --no-split-lines --pattern="%magick% composite -compose CopyOpacity \"%alphadir%\{{0:N}}.png\" \"{{0}}\" \"{{0}}\""'
 
 # convert png on dds, nvtt work well
 # not parallel -  cmd.exe /c "FOR /R %f IN (*.png) DO "C:\Program Files\NVIDIA Corporation\NVIDIA Texture Tools Exporter\nvtt_export.exe" -f bc3  -q 2 "%f"
-cmd.exe /c "dir *.png /s /b | %MParallel% --shell --detached --ignore-exitcode --count=5 --stdin --no-split-lines --pattern="\"C:\Program Files\NVIDIA Corporation\NVIDIA Texture Tools Exporter\nvtt_export.exe\" -f bc3  -q 2 \"{{0}}\"""
+cmd.exe /c 'dir *.png /s /b | %MParallel% --shell --detached --ignore-exitcode --count=5 --stdin --no-split-lines --pattern="\"C:\Program Files\NVIDIA Corporation\NVIDIA Texture Tools Exporter\nvtt_export.exe\" -f bc3  -q 2 \"{{0}}\""'
 
 
 # rename dds to texture and delete png
