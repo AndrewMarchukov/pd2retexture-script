@@ -33,8 +33,8 @@ Move-Item -Path ./alpha -Destination ..
 # not parallel - cmd.exe /c "FOR /R %f IN (*.png) DO magick mogrify -alpha off "%f""
 dir *.png /s /b | %MParallel% --ignore-exitcode --count=10 --stdin --no-split-lines --pattern="%magick% mogrify -alpha off  \"{{0}}\""
 
-# manual convert png textures and alpha layer into GIGAPIXEL or something else and go next steps, converted PNG suffix should be ".giga" something like Filename.giga.png
-read-host "Convert all PNG into units and alpha folders, converted PNG suffix should be .giga and press ENTER to continue..."
+# you need manual convert png textures and alpha layer into GIGAPIXEL or something else and go next steps, converted PNG suffix should be ".giga" something like Filename.giga.png
+read-host "Now you need convert all PNG into units and alpha folders with you hands and gigapixel ai, converted PNG suffix should be .giga and press ENTER to continue..."
 read-host "Sure?... press ENTER"
 read-host "OK press ENTER last time"
 
