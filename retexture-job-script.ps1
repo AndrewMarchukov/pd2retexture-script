@@ -2,8 +2,8 @@
 # set image magick exe
 cmd.exe /c 'set magick="C:\Program Files\ImageMagick-7.0.10-Q16-HDRI\magick.exe"'
 cmd.exe /c 'set MParallel="E:\pd2extract\units\TOOLS\MParallel.exe"'
-$env:magick = '"C:\Program Files\ImageMagick-7.0.10-Q16-HDRI\magick.exe"'
-$env:MParallel = '"E:\pd2extract\units\TOOLS\MParallel.exe"'
+$env:magick = 'C:\Program Files\ImageMagick-7.0.10-Q16-HDRI\magick.exe'
+$env:MParallel = 'E:\pd2extract\units\TOOLS\MParallel.exe'
 
 $env:MParallel
 $env:magick
@@ -16,14 +16,16 @@ Get-ChildItem -Directory -Recurse * -Include cubemaps | Remove-item
 Get-ChildItem -Recurse *.texture | Rename-Item -NewName { $_.Name -replace '.texture','.dds' }
 
 # converting dds to png or use another converter and delete dds
-cmd.exe /c "FOR /R %f IN (*.dds) DO %magick% mogrify -format png "%f""
+# not parallel - cmd.exe /c "FOR /R %f IN (*.dds) DO "%magick%" mogrify -format png "%f""
+cmd.exe /c 'dir *.dds /s /b | %MParallel% --detached --ignore-exitcode --count=10 --stdin --no-split-lines --pattern="%magick% mogrify -format png \"{{0}}\""'
+
 Get-ChildItem -Recurse * -Include *.dds | Remove-Item
 
 # extract png alpha layer
 MKDIR alpha
 
 # not parallel - cmd.exe /c "FOR /R %f IN (*.png) DO %magick% mogrify -path alpha "%f" -alpha extract "%f""
-cmd.exe /c "dir *.png /s /b | %MParallel% --detached --ignore-exitcode --count=10 --stdin --no-split-lines --pattern="%magick% mogrify -path alpha \"{{0}}\" -alpha extract \"{{0}}\"""
+cmd.exe /c 'dir *.png /s /b | %MParallel% --detached --ignore-exitcode --count=10 --stdin --no-split-lines --pattern="%magick% mogrify -path alpha \"{{0}}\" -alpha extract \"{{0}}\""'
 
 
 # move alpha current folder on above folder
@@ -31,9 +33,9 @@ Move-Item -Path ./alpha -Destination ..
 
 # remove png alpha layer
 # not parallel - cmd.exe /c "FOR /R %f IN (*.png) DO magick mogrify -alpha off "%f""
-cmd.exe /c "dir *.png /s /b | %MParallel% --ignore-exitcode --count=10 --stdin --no-split-lines --pattern="%magick% mogrify -alpha off  \"{{0}}\"""
+cmd.exe /c 'dir *.png /s /b | %MParallel% --ignore-exitcode --count=10 --stdin --no-split-lines --pattern="%magick% mogrify -alpha off  \"{{0}}\""'
 
-# you need manual convert png textures and alpha layer into GIGAPIXEL or something else and go next steps, converted PNG suffix should be ".giga" something like Filename.giga.png
+# manual convert png textures and alpha layer into GIGAPIXEL or something else and go next steps, converted PNG suffix should be ".giga" something like Filename.giga.png
 read-host "Now you need convert all PNG into units and alpha folders with you hands and gigapixel ai, converted PNG suffix should be .giga and press ENTER to continue..."
 read-host "Sure?... press ENTER"
 read-host "OK press ENTER last time"
