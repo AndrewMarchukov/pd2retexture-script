@@ -1,7 +1,7 @@
 # launch in units(textures) directory
 # set image magick exe
-cmd.exe /c 'setx magick "C:\Program Files\ImageMagick-7.0.10-Q16-HDRI\magick.exe"'
-cmd.exe /c 'setx MParallel "E:\pd2extract\units\TOOLS\MParallel.exe"'
+cmd.exe /c 'set magick="C:\Program Files\ImageMagick-7.0.10-Q16-HDRI\magick.exe"'
+cmd.exe /c 'set MParallel="E:\pd2extract\units\TOOLS\MParallel.exe"'
 $env:magick = '"C:\Program Files\ImageMagick-7.0.10-Q16-HDRI\magick.exe"'
 $env:MParallel = '"E:\pd2extract\units\TOOLS\MParallel.exe"'
 
