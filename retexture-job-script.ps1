@@ -43,6 +43,7 @@ read-host "OK press ENTER last time"
 # remove all png exclude .giga and replace file names to png without .giga
 Get-ChildItem *.png -Exclude  *.giga.png -Recurse | Remove-Item
 Get-ChildItem -Recurse *.giga.png | Rename-Item  -NewName { $_.Name -replace '.giga.png','.png' }
+cd ..;cd alpha;Get-ChildItem *.png -Exclude  *.giga.png -Recurse | Remove-Item;Get-ChildItem -Recurse *.giga.png | Rename-Item  -NewName { $_.Name -replace '.giga.png','.png' };cd ..;cd units
 
 # collecting with each other alpha and rgb layers
 cmd.exe /c 'cd .. && FOR /F "tokens=* USEBACKQ" %F IN (`"dir /ad /b | findstr -i  "alpha""`) DO (set "alphadir=%~dpnxF") && cd units'
