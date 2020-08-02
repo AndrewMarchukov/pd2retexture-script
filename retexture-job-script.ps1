@@ -1,15 +1,16 @@
 # !!!!!!!!! Launch only in units(textures) directory !!!!!!!!!!
 # set image magick exe, mparallel.exe
+Set-PSDebug -Trace 1
 cmd.exe /c 'set magick="C:\Program Files\ImageMagick-7.0.10-Q16-HDRI\magick.exe"'
-cmd.exe /c 'set MParallel="E:\pd2extract\units\TOOLS\MParallel.exe"'
+cmd.exe /c 'set MParallel="E:\pd2extract\TOOLS\MParallel.exe"'
 $env:magick = 'C:\Program Files\ImageMagick-7.0.10-Q16-HDRI\magick.exe'
-$env:MParallel = 'E:\pd2extract\units\TOOLS\MParallel.exe'
+$env:MParallel = 'E:\pd2extract\TOOLS\MParallel.exe'
 
 $env:MParallel
 $env:magick
 
 # Remove all non texture files and shit
-Get-ChildItem -Recurse * -Include *.* -Exclude  *_df.texture | Remove-Item
+Get-ChildItem -Recurse * -Include *.* -Exclude  *_df.texture,*.ps1 | Remove-Item
 Get-ChildItem -Directory -Recurse * -Include cubemaps | Remove-item
 
 # Rename texture to dds
