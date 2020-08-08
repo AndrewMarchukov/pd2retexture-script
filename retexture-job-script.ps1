@@ -11,7 +11,7 @@ $env:magick
 
 # Remove all non texture files and shit
 Get-ChildItem -Recurse * -Include *.* -Exclude  *_df.texture,*.ps1 | Remove-Item
-Get-ChildItem -Directory -Recurse * -Include cubemaps | Remove-item
+Get-ChildItem -Directory -Recurse * -Include cubemaps,safes | Remove-item
 
 # Rename texture to dds
 Get-ChildItem -Recurse *.texture | Rename-Item -NewName { $_.Name -replace '.texture','.dds' }
